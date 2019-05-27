@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {Component , Fragment } from 'react';
+import {Component  } from 'react';
 
 import {WeatherData} from '../types/types';
 import moment from 'moment';
 import ShowIcons from './ShowIcons';
+
 
 interface Props{
     weatherData?:WeatherData,
@@ -37,13 +38,13 @@ export default class DisplayWeather extends Component<Props , State> {
                  <div className="hero_container" style={sectionStyle}>
                      <div className="text-block">
                          <div className="banner">
-                             <p> { city +","+ country}</p>
-                             <p> { moment(ts *1000).format('dddd, MMM Do') }</p>
+                             <p> { city +","+ country  }  </p>
+                             <p> { moment(ts *1000).format('dddd, MMM Do')  } </p>
                          </div>
                          <div className="main">
                              <div className="main__icon"> 
                                  <ShowIcons icon={icon} /> 
-                                 <p> {description }</p>
+                                 <p> {description } </p>
                              </div>
                              <div className="temp">
                                  <p className="temp_val" >{ temp }<span className="wi wi-celsius"></span>

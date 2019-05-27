@@ -201,14 +201,27 @@ code {
   width: 100%;
   background: #fff;
   z-index: 4;
-  overflow-y: hidden;
+  overflow-y: auto;
   list-style: none;
   padding:10px;
   padding-left:5px;
-  transition: all 3s ease-in-out;
+  transition: all 300ms ease-in-out;
 }
 .input__list li{
+  cursor: pointer;
   font-size: 25px;
   font-weight: 500;
-  color:#2a2a2a
+  color:#2a2a2a;
+  transition: all 300ms ease-in-out;
+}
+
+.input__list li:hover{
+  background: #17a2b8;
+
+}
+
+.error_list{
+  color: aliceblue;
+  font-weight: 600;
+  
 }

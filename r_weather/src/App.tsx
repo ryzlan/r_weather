@@ -13,7 +13,7 @@ import Graph from './components/Graph';
 import { WeatherData, dailyData, hourlyData } from './types/types';
 
 
-import {getCurrentUserLocation , getCurrentWeather, getPicture, getdailyWeather, gethourlyWeather} from './helpers/helpers';
+import {getCurrentUserLocation , getCurrentWeather, getPicture, getdailyWeather, gethourlyWeather, getCurrentWeatherCC, getdailyWeatherCC, gethourlyWeatherCC} from './helpers/helpers';
 
 interface Props{}
 
@@ -70,7 +70,7 @@ class App extends React.Component{
       .then((img_Data)=>{
         this.setState({
           img:img_Data.img,
-          loading: false
+          
         })
       })
       .then(()=>getdailyWeather(this.state.lat , this.state.lon ))
@@ -78,7 +78,8 @@ class App extends React.Component{
         console.log(arrdata);
         
         this.setState({
-          dailyData:arrdata
+          dailyData:arrdata,
+          loading: false
         })
       })
       .then(()=>gethourlyWeather(this.state.lat , this.state.lon))
@@ -91,6 +92,52 @@ class App extends React.Component{
       })
       .catch(err => console.log(err));
   }
+
+
+
+
+  handleSubmit=(city :string , country :string)=>{
+     console.log(city, country);
+     this.setState({
+       loading:true
+ 
+     })
+     
+     getCurrentWeatherCC(city ,country)
+      .then((term)=>{
+        this.setState({
+          weatherData:term,
+          term: term.description
+        })
+        return term.description;
+      })
+      .then((des)=>getPicture(des))
+      .then((img_Data)=>{
+        this.setState({
+          img:img_Data.img,
+          
+        })
+      })
+      .then(()=>getdailyWeatherCC(city, country ))
+      .then((arrdata)=>{
+        console.log(arrdata);
+        
+        this.setState({
+          dailyData:arrdata,
+          loading: false
+        })
+      })
+      .then(()=>gethourlyWeatherCC(city, country ))
+      .then(arr =>{
+        console.log(arr);
+        
+        this.setState({
+          hourlyData:arr
+        })
+      })
+   }
+
+
 
 
   render(){
@@ -106,7 +153,7 @@ class App extends React.Component{
 
     return (
       <>
-      <Navigation />
+      <Navigation handleSubmit={this.handleSubmit} />
       <Container>
         <Row>
           {displayWeather}

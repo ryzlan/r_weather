@@ -5,8 +5,10 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import InputQuery from './InputQuery';
 
-
-export default class Navigation extends React.Component{
+interface Props{
+    handleSubmit: (city:string  , country :string ) => void
+  }
+export default class Navigation extends React.Component<Props>{
     render(){
         return(
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -14,7 +16,7 @@ export default class Navigation extends React.Component{
                 <Navbar.Brand href="#home">React Weather App</Navbar.Brand>
                 <Nav className="mr-auto">
                 </Nav>
-                <InputQuery />
+                <InputQuery handleSubmit={this.props.handleSubmit} />
                 </Container>
             </Navbar>
         );
