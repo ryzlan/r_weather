@@ -9,10 +9,6 @@ body {
   color:#2a2a2a !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 #root{
   width: 100%;
@@ -33,6 +29,17 @@ code {
   
  
 }
+
+.hero_container .lone{
+
+  cursor: pointer;
+  position: absolute;
+  font-size: 30px;
+  top: 0;
+  left: 15px;
+  z-index: 5;
+}
+
 /* background: linear-gradient(0deg,#6c7ee3,#92d3e1); */
 .hero_container:before{
   content: "";
@@ -43,7 +50,7 @@ code {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, .5);  
+    background-color: rgba(255, 255, 255, .2);  
     filter: blur(15px);
     
 }
@@ -128,7 +135,7 @@ code {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 
@@ -151,19 +158,7 @@ code {
   position: relative;
   margin-bottom: 20px;
  }
- .weather_card:before{
-  content: "";
-    position: absolute;
-    background: inherit;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, .5);  
-    filter: blur(15px);
-    
-}
+
 
  .weather_card:hover{
    transform: scale(1.01);
@@ -208,6 +203,8 @@ code {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 .graph-container:before{
   content: "";
@@ -281,6 +278,9 @@ code {
 
 
 @media (min-width: 481px) and (max-width: 767px) {
+  .hero_container{
+    margin: 20px 5px;
+  }
   .main{
     width: 100%;
     display: flex;

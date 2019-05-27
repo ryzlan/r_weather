@@ -8,6 +8,7 @@ import ShowIcons from './ShowIcons';
 
 interface Props{
     weatherData?:WeatherData,
+    refresh: () => void
 }
 interface State{
 
@@ -25,6 +26,7 @@ export default class DisplayWeather extends Component<Props , State> {
 
             return(
                  <div className="hero_container" >
+                    <p className="lone" onClick={this.props.refresh}><i className="wi wi-refresh"></i></p>
                      <div className="text-block">
                          <div className="banner">
                              <p> { city +","+ country  }  </p>

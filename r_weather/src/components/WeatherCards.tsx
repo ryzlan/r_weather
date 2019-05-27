@@ -13,7 +13,6 @@ class WeatherCard extends Component<Props> {
     render() { 
         
         const {icon , description, ts, hi_temp, lo_temp } = this.props.data;
-        console.log(ts);
         
         return ( 
             <div className="weather_card">

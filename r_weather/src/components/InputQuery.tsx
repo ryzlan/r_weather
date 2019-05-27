@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import ReactAutocomplete from 'react-autocomplete';
+
 import items from '../data/cities';
-import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup';

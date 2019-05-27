@@ -1,4 +1,4 @@
-import { Geolocation, WeatherData, dailyData } from '../types/types';
+import { Geolocation, WeatherData } from '../types/types';
 import { W_Current_url, weather__APIkey, unsplash_key, unsplash_secret, daily_url, hourly_url } from '../config/configs';
 import Unsplash from 'unsplash-js';
 import moment from 'moment';
@@ -12,7 +12,7 @@ export const getCurrentUserLocation =(): Promise<Geolocation>=>{
         reject('Geolocation is not Working');
 
       }else {
-        console.log('getting location/...');
+        
         navigator.geolocation.watchPosition(position =>{
           
           resolve({
@@ -30,7 +30,7 @@ export const getCurrentUserLocation =(): Promise<Geolocation>=>{
 export const getCurrentWeather = async(geolocation : Geolocation) : Promise<WeatherData> =>{
   const {latitude, longitude} = geolocation;
   let url = `${W_Current_url}lat=${latitude}&lon=${longitude}&key=${weather__APIkey}`;
-  console.log(url);
+ 
     return new Promise((resolve , reject) =>{
       fetch(url)
       .then(res => res.json())
@@ -80,7 +80,6 @@ export const getCurrentWeather = async(geolocation : Geolocation) : Promise<Weat
 
 export const getCurrentWeatherCC = async(city : string , country :string ) : Promise<WeatherData> =>{
   let url = `${W_Current_url}city=${city}&country=${country}&key=${weather__APIkey}`;
-  console.log(url);
     return new Promise((resolve , reject) =>{
       fetch(url)
       .then(res => res.json())
@@ -148,7 +147,7 @@ return new Promise((resolve , reject) =>{
   unsplash.search.photos(query+" nature", 1 , 10 )
   .then(res => res.json())
   .then(json => {
-    console.log(json);
+   
     resolve({
       img:json.results[3].urls.regular
     })
@@ -170,7 +169,7 @@ export const   getdailyWeather =  (lat:number ,lon:number)  =>{
     .then(data =>{
       
       return data.data.map((w : any)=>{
-        console.log(w.valid_data);
+        
         
         return {
           icon:w.weather.code,
@@ -182,7 +181,7 @@ export const   getdailyWeather =  (lat:number ,lon:number)  =>{
       })
     })
     .then((arr  )=>{
-      console.log(arr);
+      
       resolve(arr)
       
     })

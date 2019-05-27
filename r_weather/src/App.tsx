@@ -48,51 +48,56 @@ class App extends React.Component{
 
 
   componentDidMount(){
-    getCurrentUserLocation()
-      //get Geolocation
-      .then(geolocation =>{
-        const {latitude, longitude} = geolocation;
-        this.setState({
-          lat:latitude,
-          lon:longitude
-        })
-        return geolocation;
-      })
-      .then(geolocation => getCurrentWeather(geolocation))
-      .then((term)=>{
-        this.setState({
-          weatherData:term,
-          term: term.description
-        })
-        return term.description;
-      })
-      .then((des)=>getPicture(des))
-      .then((img_Data)=>{
-        this.setState({
-          img:img_Data.img,
-          
-        })
-      })
-      .then(()=>getdailyWeather(this.state.lat , this.state.lon ))
-      .then((arrdata)=>{
-        console.log(arrdata);
-        
-        this.setState({
-          dailyData:arrdata,
-          loading: false
-        })
-      })
-      .then(()=>gethourlyWeather(this.state.lat , this.state.lon))
-      .then(arr =>{
-        console.log(arr);
-        
-        this.setState({
-          hourlyData:arr
-        })
-      })
-      .catch(err => console.log(err));
+    this.refresh();
   }
 
+  refresh =  () =>{
+    console.log('clec');
+    
+    getCurrentUserLocation()
+    //get Geolocation
+    .then(geolocation =>{
+      const {latitude, longitude} = geolocation;
+      this.setState({
+        lat:latitude,
+        lon:longitude
+      })
+      return geolocation;
+    })
+    .then(geolocation => getCurrentWeather(geolocation))
+    .then((term)=>{
+      this.setState({
+        weatherData:term,
+        term: term.description
+      })
+      return term.description;
+    })
+    .then((des)=>getPicture(des))
+    .then((img_Data)=>{
+      this.setState({
+        img:img_Data.img,
+        
+      })
+    })
+    .then(()=>getdailyWeather(this.state.lat , this.state.lon ))
+    .then((arrdata)=>{
+      
+      
+      this.setState({
+        dailyData:arrdata,
+        loading: false
+      })
+    })
+    .then(()=>gethourlyWeather(this.state.lat , this.state.lon))
+    .then(arr =>{
+      
+      
+      this.setState({
+        hourlyData:arr
+      })
+    })
+    .catch(err => console.log(err));
+  }
 
 
 
@@ -120,7 +125,7 @@ class App extends React.Component{
       })
       .then(()=>getdailyWeatherCC(city, country ))
       .then((arrdata)=>{
-        console.log(arrdata);
+       
         
         this.setState({
           dailyData:arrdata,
@@ -129,14 +134,14 @@ class App extends React.Component{
       })
       .then(()=>gethourlyWeatherCC(city, country ))
       .then(arr =>{
-        console.log(arr);
+        
         
         this.setState({
           hourlyData:arr
         })
       })
    }
-
+  
 
 
 
@@ -151,7 +156,8 @@ class App extends React.Component{
   }
 
     const displayWeather = this.state.weatherData && (
-        <DisplayWeather weatherData={this.state.weatherData} />
+        <DisplayWeather weatherData={this.state.weatherData} 
+        refresh={this.refresh} />
     );
 
     const dailyWeather = this.state.dailyData && <DailyWeather dailyData={this.state.dailyData} /> ;
