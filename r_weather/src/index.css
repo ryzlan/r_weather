@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,6 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root{
+  width: 100%;
+  height: 100%;
+}
+
 
 .hero_container {
   position: relative;
@@ -169,4 +176,39 @@ code {
 
 .text-centr{
   text-align: center;
+}
+
+
+.graph-container{
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  height: 400px;
+  background-color: #fff;
+}
+
+.search{
+  position: relative;
+ 
+}
+.search .input-group{
+  margin-top: 1rem  0;
+}
+.input__list{
+  margin-top: 10px;
+  position: absolute;
+  height: 400px;
+  width: 100%;
+  background: #fff;
+  z-index: 4;
+  overflow-y: hidden;
+  list-style: none;
+  padding:10px;
+  padding-left:5px;
+  transition: all 3s ease-in-out;
+}
+.input__list li{
+  font-size: 25px;
+  font-weight: 500;
+  color:#2a2a2a
 }

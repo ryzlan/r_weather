@@ -51573,7 +51573,7 @@ let arr=`[
     }
   ]`;
 
-  let cities= JSON.parse(arr)
+  let items= JSON.parse(arr)
 
 
-  export default cities;
+  export default items;
