@@ -10,6 +10,12 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+// Flag for enabling cache in production
+var doCache = false;
+
+var CACHE_NAME = 'pwa-app-cache';
+
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -59,6 +65,11 @@ export function register(config?: Config) {
         registerValidSW(swUrl, config);
       }
     });
+
+
+
+
+
   }
 }
 

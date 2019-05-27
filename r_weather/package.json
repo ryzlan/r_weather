@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-sw": "http-server ./build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +47,7 @@
     "@types/react-autocomplete": "^1.8.5",
     "@types/react-autosuggest": "^9.3.8",
     "@types/recharts": "^1.1.16",
-    "@types/unsplash-js": "^5.0.0"
+    "@types/unsplash-js": "^5.0.0",
+    "http-server": "^0.11.1"
   }
 }

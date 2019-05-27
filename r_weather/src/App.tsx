@@ -8,7 +8,7 @@ import Navigation from './components/Navigation';
 import DisplayWeather from './components/DisplayWeather';
 import DailyWeather from './components/DailyWeather';
 import Graph from './components/Graph';
-
+import Loading from './components/Loading';
 
 import { WeatherData, dailyData, hourlyData } from './types/types';
 
@@ -141,34 +141,54 @@ class App extends React.Component{
 
 
   render(){
-
+    const sectionStyle = {
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url("${this.state.img}")`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+  }
 
     const displayWeather = this.state.weatherData && (
-        <DisplayWeather weatherData={this.state.weatherData} img={this.state.img}/>
+        <DisplayWeather weatherData={this.state.weatherData} />
     );
 
     const dailyWeather = this.state.dailyData && <DailyWeather dailyData={this.state.dailyData} /> ;
 
     const hourlyWeather = this.state.hourlyData && <Graph data={this.state.hourlyData}/>
 
+    const body = (<section style={sectionStyle}>
+    <Container >
+      <Row>
+       
+        {displayWeather}
+      </Row>
+      <Row>
+      
+          {dailyWeather}  
+        
+      </Row>
+      <Row>
+        <div className="graph-container">
+          <h3 className="text-centr">12-hrs Forecast</h3>
+          {hourlyWeather}
+        </div>
+        
+      </Row>
+
+    </Container>
+    </section>);
+
     return (
       <>
       <Navigation handleSubmit={this.handleSubmit} />
-      <Container>
-        <Row>
-          {displayWeather}
-        </Row>
-        <Row>
-          {dailyWeather}
-        </Row>
-        <Row>
-          <div className="graph-container">
-            {hourlyWeather}
-          </div>
-          
-        </Row>
-  
-      </Container>
+      {this.state.loading ? 
+      <Loading />
+      :
+      body
+      }
+      
       </>
     );
   }
