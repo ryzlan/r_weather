@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/react-autosuggest": "^9.3.8",
+    "@types/recharts": "^1.1.16",
     "@types/unsplash-js": "^5.0.0"
   }
 }

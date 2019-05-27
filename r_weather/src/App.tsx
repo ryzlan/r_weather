@@ -8,10 +8,11 @@ import './components/InputQuery';
 import InputQuery from './components/InputQuery';
 import DisplayWeather from './components/DisplayWeather';
 import DailyWeather from './components/DailyWeather';
+import Graph from './components/Graph';
 
-
-import {weather__APIkey,W_Current_url ,unsplash_key , unsplash_secret ,daily_url } from './config/configs'
-import { WeatherData, Geolocation, dailyData } from './types/types';
+import {weather__APIkey,W_Current_url ,unsplash_key , unsplash_secret ,daily_url,hourly_url } from './config/configs'
+import { WeatherData, Geolocation, dailyData ,hourlyData } from './types/types';
+import moment from 'moment';
 
 
 interface Props{}
@@ -20,9 +21,11 @@ interface State{
   loading:boolean,
   weatherData?:WeatherData,
   dailyData?:dailyData[],
+  hourlyData?:hourlyData[]
   img?:string,
   lat:string,
-  lon:string
+  lon:string,
+  term:string 
 }
 
 const unsplash = new Unsplash({
@@ -36,12 +39,14 @@ class App extends React.Component{
     loading:true,
     weatherData:undefined,
     dailyData:undefined,
+    hourlyData:undefined,
     img:'',
     lat:'',
-    lon:''
+    lon:'',
+    term:''
   }
 
-  getCurrentUserLocation(): Promise<Geolocation>{
+  getCurrentUserLocation =(): Promise<Geolocation>=>{
     return new Promise((resolve , reject) =>{
       if(!navigator.geolocation){
         reject('Geolocation is not Working');
@@ -73,7 +78,7 @@ class App extends React.Component{
     let url = `${W_Current_url}lat=${latitude}&lon=${longitude}&key=${weather__APIkey}`;
     console.log(url);
 
-   let query =await fetch(url)
+   await fetch(url)
       .then(res => res.json())
       .then(data =>{
         let obj = {
@@ -90,7 +95,7 @@ class App extends React.Component{
           lon:data.data[0].lon
 
         };
-        const weatherData = {
+        return  {
           city:obj.city,
           country:obj.country,
           description:obj.des,
@@ -103,25 +108,31 @@ class App extends React.Component{
           lat:obj.lat, 
           lon:obj.lon
         }
-        this.setState({
-          weatherData
-        })
-        return obj.des;
+        
+        
       })
+      .then((term)=>{
+        this.setState({
+          weatherData:term,
+          term: term.description
+        })
+        return 
+      })
+
       .catch(err => console.log(err));
 
-      return query
+      
       
   }
-  getPicture=  (query : string )=>{
+  getPicture=  (query : string ):void =>{
     
-    unsplash.search.photos(query, 1 , 10 )
+    unsplash.search.photos(query+" nature", 1 , 10 )
     .then(res => res.json())
     .then(json => {
       console.log(json);
       this.setState({
         loading:false,
-        img:json.results[2].urls.regular,
+        img:json.results[3].urls.regular,
       })
     })
     .catch((err)=>{
@@ -133,21 +144,22 @@ class App extends React.Component{
     })
   }
 
-  getdailyWeather = async ()=>{
-    let url = `${daily_url}lat=${this.state.lat}&lon=${this.state.lon}&key=${weather__APIkey}`;
+  getdailyWeather =  ():void  =>{
+    let url = `${daily_url}lat=${this.state.lat}&lon=${this.state.lon}&days=5&key=${weather__APIkey}`;
     
     fetch(url)
     .then(res => res.json())
     .then(data =>{
-      console.log(data.data.splice(1,5));
       
-      return data.data.splice(1,5).map((w : any)=>{
+      return data.data.map((w : any)=>{
+        console.log(w.valid_data);
+        
         return {
           icon:w.weather.code,
           des:w.weather.description,
           hi_temp:w.max_temp,
           lo_temp:w.min_temp,
-          ts:w.ts
+          ts:w.valid_date
         }
       })
     })
@@ -160,7 +172,27 @@ class App extends React.Component{
     })
     .catch(err => console.log(err));
   }
- // gethourlyWeather
+  gethourlyWeather=():void =>{
+    let url = `${hourly_url}lat=${this.state.lat}&lon=${this.state.lon}&hours=12&key=${weather__APIkey}`;
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(data =>{
+      return data.data.map((d:any )=>{
+        let date = moment(d.ts *1000 ).format('h:mm A');
+        return {
+          Time: date ,
+          Temp:d.temp 
+        }
+      })
+      
+    })
+    .then((arr) => this.setState({
+      loading: false ,
+      hourlyData:arr
+    }))
+    .catch(err => console.log(err));
+  }
 
 
 
@@ -168,8 +200,9 @@ class App extends React.Component{
   componentDidMount(){
     this.getCurrentUserLocation()
       .then(geolocation => this.getCurrentWeather(geolocation))
-      .then((des)=>this.getPicture(des))
+      .then((des)=>this.getPicture(this.state.term))
       .then(()=>this.getdailyWeather())
+      .then(()=>this.gethourlyWeather())
       .catch(err => console.log(err));
   }
 
@@ -183,6 +216,8 @@ class App extends React.Component{
 
     const dailyWeather = this.state.dailyData && <DailyWeather dailyData={this.state.dailyData} /> ;
 
+    const hourlyWeather = this.state.hourlyData && <Graph data={this.state.hourlyData}/>
+
     return (
       <Container>
         <Row>
@@ -193,6 +228,9 @@ class App extends React.Component{
         </Row>
         <Row>
           {dailyWeather}
+        </Row>
+        <Row>
+          {hourlyWeather}
         </Row>
   
       </Container>

@@ -20,7 +20,12 @@ export type dailyData={
     description:string,
     hi_temp:number ,
     lo_temp:number ,
-    ts: number 
+    ts: string
+}
+
+export type hourlyData = {
+    Time:string,
+    Temp:string
 }
 
 export type Geolocation = {

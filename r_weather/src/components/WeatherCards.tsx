@@ -13,6 +13,7 @@ class WeatherCard extends Component<Props> {
     render() { 
         
         const {icon , description, ts, hi_temp, lo_temp } = this.props.data;
+        console.log(ts);
         
         return ( 
             <div className="weather_card">
@@ -25,7 +26,7 @@ class WeatherCard extends Component<Props> {
                     <i className="wi wi-direction-down"> {lo_temp}<span className="wi wi-celsius"></span></i> 
                 </div> 
                 <div className="weather__date">
-                    <p>{ moment(ts *1000).format('ddd, MMM Do') }</p>
+                    <p>{ moment(ts).format('ddd, MMM Do') }</p>
                 </div>
                  
             </div>
