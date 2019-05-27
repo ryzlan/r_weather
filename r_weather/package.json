@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-autosuggest": "^9.3.8"
+    "@types/react-autosuggest": "^9.3.8",
+    "@types/unsplash-js": "^5.0.0"
   }
 }

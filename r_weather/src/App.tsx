@@ -2,30 +2,36 @@ import React from 'react';
 import { Component, Fragment } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
-import './App.css';
 
+import Unsplash from 'unsplash-js';
 
 import './components/InputQuery';
 import InputQuery from './components/InputQuery';
 import DisplayWeather from './components/DisplayWeather';
 
-import {weather__APIkey,W_Current_url} from './config/configs'
+import {weather__APIkey,W_Current_url ,unsplash_key , unsplash_secret } from './config/configs'
 import {WeatherData , Geolocation} from './types/types';
-import { log } from 'util';
+
 
 interface Props{}
 
 interface State{
   loading:boolean,
-  weatherData?:WeatherData
+  weatherData?:WeatherData,
+  img?:string
 }
 
+const unsplash = new Unsplash({
+  applicationId:unsplash_key,
+  secret:unsplash_secret
+});
 
 
 class App extends React.Component{
   state={
     loading:true,
-    weatherData:undefined
+    weatherData:undefined,
+    img:''
   }
 
   getCurrentUserLocation(): Promise<Geolocation>{
@@ -49,14 +55,14 @@ class App extends React.Component{
     })
   }
 
-  getCurrentWeather = (geolocation : Geolocation): void =>{
+  getCurrentWeather = async(geolocation : Geolocation)  =>{
     const {latitude, longitude} = geolocation;
     console.log(geolocation);
     
     let url = `${W_Current_url}lat=${latitude}&lon=${longitude}&key=${weather__APIkey}`;
     console.log(url);
 
-    fetch(url)
+   let query =await fetch(url)
       .then(res => res.json())
       .then(data =>{
         let obj = {
@@ -89,17 +95,45 @@ class App extends React.Component{
         this.setState({
           weatherData
         })
+        return obj.des;
       })
       .catch(err => console.log(err));
 
-      
+      return query
       
   }
+  getPicture=  (query : string )=>{
+    
+    unsplash.search.photos(query, 1 , 10 )
+    .then(res => res.json())
+    .then(json => {
+      console.log(json);
+      this.setState({
+        loading:false,
+        img:json.results[2].urls.regular,
+      })
+    })
+    .catch((err)=>{
+      console.log(err);
+      // this.setState({
+      //   loading:false,
+      //   error_picture:"Broken Search ... Please type again",
+      // })
+    })
+  }
+
+
+
+
 
   componentDidMount(){
     this.getCurrentUserLocation()
       .then(geolocation => this.getCurrentWeather(geolocation))
-      .then() // unsplashed api 
+      .then((query)=> {
+        console.log(query);
+        
+        this.getPicture(query)
+      })
       .catch(err => console.log(err));
   }
 
@@ -108,7 +142,7 @@ class App extends React.Component{
 
 
     const displayWeather = this.state.weatherData && (
-        <DisplayWeather weatherData={this.state.weatherData} />
+        <DisplayWeather weatherData={this.state.weatherData} img={this.state.img}/>
     );
 
     return (

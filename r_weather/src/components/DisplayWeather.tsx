@@ -17,13 +17,24 @@ export default class DisplayWeather extends Component<Props , State> {
     
 
     render(){
-        const {weatherData} = this.props;
+        const {weatherData, img} = this.props;
         
         if(weatherData){
             const {city , country , description ,icon , realfeel , sunrise ,sunset , temp , ts } = weatherData;
+            
+            const sectionStyle = {
+                width: "100%",
+                height: "400px",
+                backgroundImage: `url("${img}")`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
+            }
+
+
+
             return(
-                 <div className="hero_container">
-                 <img src={this.props.img } alt="location images" />
+                 <div className="hero_container" style={sectionStyle}>
                      <div className="text-block">
                          <div className="banner">
                              <p> { city +","+ country}</p>
