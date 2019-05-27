@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component, Fragment } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 
@@ -8,9 +7,11 @@ import Unsplash from 'unsplash-js';
 import './components/InputQuery';
 import InputQuery from './components/InputQuery';
 import DisplayWeather from './components/DisplayWeather';
+import DailyWeather from './components/DailyWeather';
 
-import {weather__APIkey,W_Current_url ,unsplash_key , unsplash_secret } from './config/configs'
-import {WeatherData , Geolocation} from './types/types';
+
+import {weather__APIkey,W_Current_url ,unsplash_key , unsplash_secret ,daily_url } from './config/configs'
+import { WeatherData, Geolocation, dailyData } from './types/types';
 
 
 interface Props{}
@@ -18,7 +19,10 @@ interface Props{}
 interface State{
   loading:boolean,
   weatherData?:WeatherData,
-  img?:string
+  dailyData?:dailyData[],
+  img?:string,
+  lat:string,
+  lon:string
 }
 
 const unsplash = new Unsplash({
@@ -31,7 +35,10 @@ class App extends React.Component{
   state={
     loading:true,
     weatherData:undefined,
-    img:''
+    dailyData:undefined,
+    img:'',
+    lat:'',
+    lon:''
   }
 
   getCurrentUserLocation(): Promise<Geolocation>{
@@ -57,6 +64,10 @@ class App extends React.Component{
 
   getCurrentWeather = async(geolocation : Geolocation)  =>{
     const {latitude, longitude} = geolocation;
+    this.setState({
+      lat:latitude,
+      lon:longitude
+    })
     console.log(geolocation);
     
     let url = `${W_Current_url}lat=${latitude}&lon=${longitude}&key=${weather__APIkey}`;
@@ -122,6 +133,34 @@ class App extends React.Component{
     })
   }
 
+  getdailyWeather = async ()=>{
+    let url = `${daily_url}lat=${this.state.lat}&lon=${this.state.lon}&key=${weather__APIkey}`;
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(data =>{
+      console.log(data.data.splice(1,5));
+      
+      return data.data.splice(1,5).map((w : any)=>{
+        return {
+          icon:w.weather.code,
+          des:w.weather.description,
+          hi_temp:w.max_temp,
+          lo_temp:w.min_temp,
+          ts:w.ts
+        }
+      })
+    })
+    .then((arr)=>{
+      console.log(arr);
+      
+      this.setState({
+        dailyData:arr
+      })
+    })
+    .catch(err => console.log(err));
+  }
+ // gethourlyWeather
 
 
 
@@ -129,11 +168,8 @@ class App extends React.Component{
   componentDidMount(){
     this.getCurrentUserLocation()
       .then(geolocation => this.getCurrentWeather(geolocation))
-      .then((query)=> {
-        console.log(query);
-        
-        this.getPicture(query)
-      })
+      .then((des)=>this.getPicture(des))
+      .then(()=>this.getdailyWeather())
       .catch(err => console.log(err));
   }
 
@@ -145,6 +181,8 @@ class App extends React.Component{
         <DisplayWeather weatherData={this.state.weatherData} img={this.state.img}/>
     );
 
+    const dailyWeather = this.state.dailyData && <DailyWeather dailyData={this.state.dailyData} /> ;
+
     return (
       <Container>
         <Row>
@@ -152,6 +190,9 @@ class App extends React.Component{
         </Row>
         <Row>
           {displayWeather}
+        </Row>
+        <Row>
+          {dailyWeather}
         </Row>
   
       </Container>

@@ -107,3 +107,66 @@ code {
   font-size: 50px;
   
 }
+
+
+
+
+.forcast__wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: no-wrap;
+
+}
+
+.weather_card{
+  cursor: pointer;
+  height: 280px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(0deg,#6c7ee3,#92d3e1);
+  color: #fff;
+  font-weight: 700;
+  box-shadow:10px 15px 25px #aaa;
+  border-right: 1px solid #fff;
+  transition: all 300ms ease-in;
+  z-index: 1;
+ }
+
+ .weather_card:hover{
+   transform: scale(1.01);
+ }
+
+.icon__wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon__wrapper i{
+  font-size: 80px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.icon__wrapper p{
+  height: 25px;;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 0px;
+}
+.hi__low{
+  margin:5px 0;
+}
+.hi__low i{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.text-centr{
+  text-align: center;
+}

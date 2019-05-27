@@ -15,6 +15,14 @@ export type WeatherData = {
 
 };
 
+export type dailyData={
+    icon:string,
+    description:string,
+    hi_temp:number ,
+    lo_temp:number ,
+    ts: number 
+}
+
 export type Geolocation = {
 	latitude: number;
 	longitude: number;
