@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/r_weather/static/css/main.eda4355a.chunk.css",
-    "main.js": "/r_weather/static/js/main.27e48d76.chunk.js",
-    "main.js.map": "/r_weather/static/js/main.27e48d76.chunk.js.map",
+    "main.js": "/r_weather/static/js/main.8c150cf8.chunk.js",
+    "main.js.map": "/r_weather/static/js/main.8c150cf8.chunk.js.map",
     "runtime~main.js": "/r_weather/static/js/runtime~main.f926b557.js",
     "runtime~main.js.map": "/r_weather/static/js/runtime~main.f926b557.js.map",
     "static/js/2.2dce52d2.chunk.js": "/r_weather/static/js/2.2dce52d2.chunk.js",
     "static/js/2.2dce52d2.chunk.js.map": "/r_weather/static/js/2.2dce52d2.chunk.js.map",
     "index.html": "/r_weather/index.html",
-    "precache-manifest.80830d60ab5a6c5e0df585ddd733bc9b.js": "/r_weather/precache-manifest.80830d60ab5a6c5e0df585ddd733bc9b.js",
+    "precache-manifest.4829ddf9cd22120252c6f16c6447cb1b.js": "/r_weather/precache-manifest.4829ddf9cd22120252c6f16c6447cb1b.js",
     "service-worker.js": "/r_weather/service-worker.js",
     "static/css/main.eda4355a.chunk.css.map": "/r_weather/static/css/main.eda4355a.chunk.css.map",
     "static/media/weather-icons.css": "/r_weather/static/media/weathericons-regular-webfont.ecaf8b48.svg"
