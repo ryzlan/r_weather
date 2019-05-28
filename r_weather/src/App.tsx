@@ -40,18 +40,26 @@ class App extends React.Component{
     dailyData:undefined,
     hourlyData:undefined,
     img:'',
-    lat:0,
-    lon:0,
+    lat:23.781375999999998,
+    lon:90.36185599999999,
     term:'',
     error:''
   }
 
 
-
+  componentWillMount(){
+    const cachedHits = localStorage.getItem('data');
+    if(cachedHits !== null ){
+      this.setState(JSON.parse(cachedHits))
+    }
+   
+    
+  }
 
 
   componentDidMount(){
     this.init();
+    
     
      this.interval= setInterval( ()=>{this.refresh()},5 * 60000 );
   }
@@ -88,6 +96,7 @@ class App extends React.Component{
       this.setState({
         hourlyData:arr
       })
+      localStorage.setItem('data', JSON.stringify(this.state));
     })
     .catch(err =>{
       this.setState({
@@ -144,6 +153,8 @@ class App extends React.Component{
       this.setState({
         hourlyData:arr
       })
+
+      localStorage.setItem('data', JSON.stringify(this.state));
     })
     .catch(err => {
       this.setState({
@@ -194,6 +205,7 @@ class App extends React.Component{
         this.setState({
           hourlyData:arr
         })
+        localStorage.setItem('data', JSON.stringify(this.state));
       })
       .catch((err) =>{
         this.setState({
@@ -208,6 +220,8 @@ class App extends React.Component{
 
 
   render(){
+    console.log(this.state);
+    
     const sectionStyle = {
       width: "100%",
       height: "100%",
@@ -228,6 +242,11 @@ class App extends React.Component{
 
     const body = (<section style={sectionStyle}>
     <Container >
+      <Row>
+        <div>
+          {this.state.error}
+        </div>
+      </Row>
       <Row>
        
         {displayWeather}
@@ -251,12 +270,32 @@ class App extends React.Component{
     return (
       <>
       <Navigation handleSubmit={this.handleSubmit} />
-      {this.state.loading ? 
-      <Loading />
-      :
-      body
-      }
+      <section style={sectionStyle}>
+    <Container >
+       <Row>
+         {this.state.error &&<div className="error-main">
+          {this.state.error}
+        </div>}
+      </Row>
+      <Row>
+       
+        {displayWeather}
+      </Row>
+      <Row>
       
+          {dailyWeather}  
+        
+      </Row>
+      <Row>
+        <div className="graph-container">
+          <h3 className="text-centr">12-hrs Forecast</h3>
+          {hourlyWeather}
+        </div>
+        
+      </Row>
+
+    </Container>
+    </section>
       </>
     );
   }

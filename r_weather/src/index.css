@@ -383,3 +383,12 @@ body {
   }
   
 }
+
+
+.error-main{
+  width: 100%;
+  border:2px solid salmon;
+  text-align: center;
+  font-size: 25px;
+  color:#0765e6
+}

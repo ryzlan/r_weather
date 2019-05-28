@@ -15,11 +15,70 @@
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
   crossorigin="anonymous"
 />
-    <title>React Weather App</title>
+    <title> Weather App</title>
+    <style>
+      .shell-container{
+        max-width: 1140px;
+        background:#2a2a2a;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      .shell-header{
+        height: 400px;
+        width: 100%;
+        background: #f2f2f2;
+      }
+      .shell-card-container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .shell-cards{
+        height: 280px;
+         width: 190px;
+         background: linear-gradient(180deg,#297af9,#333fb7);
+      }
+      .shell-graph-container{
+        height: 400px;
+        width: 100%;
+        background: #f2f2f2
+      }
+    
+    
+    </style>
+
+
+
   </head>
   <body>
     
-    <div id="root"></div>
+    <div id="root">
+      <div class="shell-container">
+        <div class="shell-header">
+
+        </div>
+        <div class="shell-card-container">
+          <div class="shell-cards"></div>
+          <div class="shell-cards"></div>
+          <div class="shell-cards"></div>
+          <div class="shell-cards"></div>
+          <div class="shell-cards"></div>
+        </div>
+        <div class="shell-graph-container"></div>
+      </div>
+
+
+
+
+
+
+    </div>
 
 
     <script>

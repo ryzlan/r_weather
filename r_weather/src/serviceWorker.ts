@@ -11,10 +11,8 @@
 // opt-in, read https://bit.ly/CRA-PWA
 
 // Flag for enabling cache in production
-var doCache = false;
 
-var CACHE_NAME = 'pwa-app-cache';
-
+const cacheName = 'v2';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -66,7 +64,45 @@ export function register(config?: Config) {
       }
     });
 
+    window.addEventListener('install', e => {
+      console.log('Service Worker: Installed');
+    });
 
+    window.addEventListener('activate', (e :any) => {
+      console.log('Service Worker: Activated');
+      // Remove unwanted caches
+      e.waitUntil(
+        caches.keys().then((cacheNames :any)  => {
+          return Promise.all(
+            cacheNames.map((cache :any)=> {
+              if (cache !== cacheName) {
+                console.log('Service Worker: Clearing Old Cache');
+                return caches.delete(cache);
+              }
+            })
+          );
+        })
+      );
+    });
+
+// Call Fetch Event
+window.addEventListener('fetch', ( e:any) => {
+  console.log('Service Worker: Fetching');
+  e.respondWith(
+    fetch(e.request)
+      .then(res => {
+        // Make copy/clone of response
+        const resClone = res.clone();
+        // Open cahce
+        caches.open(cacheName).then(cache => {
+          // Add response to cache
+          cache.put(e.request, resClone);
+        });
+        return res;
+      })
+      .catch(err => caches.match(e.request).then(res => res))
+  );
+});
 
 
 

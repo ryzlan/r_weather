@@ -13,14 +13,25 @@ export const getCurrentUserLocation =(): Promise<Geolocation>=>{
 
       }else {
         
+        
+
+
         navigator.geolocation.watchPosition(position =>{
-          
+          setInterval(()=>{
+            resolve({
+              latitude:23.781375999999998,
+              longitude:90.36185599999999
+            })
+          },10000);
           resolve({
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
           });
+          
+
+
         } , err =>{
-          reject(`Cant get current Location :${err.message}`);
+          reject(new Error(`Cant get current Location :${err.message}`));
         })
         
       }
@@ -69,7 +80,7 @@ export const getCurrentWeather = async(lat:number ,lon:number) : Promise<Weather
       })
       .catch(err => {
         console.log(err)
-        reject('Error getting Current Weather');
+        reject(new Error('Error getting Current Weather'));
       });
 })
  
@@ -118,7 +129,7 @@ export const getCurrentWeatherCC = async(city : string , country :string ) : Pro
       })
       .catch(err => {
         console.log(err)
-        reject('Error getting Current Weather');
+        reject(new Error('Error getting Current Weather'));
       });
 })
  
@@ -154,7 +165,7 @@ return new Promise((resolve , reject) =>{
   })
   .catch((err)=>{
     console.log(err);
-    reject('Error Getting picture');
+    reject(new Error('Error Getting picture'));
   })
 })
 
@@ -186,7 +197,7 @@ export const   getdailyWeather =  (lat:number ,lon:number)  =>{
       
     })
     .catch(err => {
-      reject("Could not get Daily Forecast");
+      reject(new Error("Could not get Daily Forecast"));
       console.log(err)
     });
   })
@@ -217,7 +228,7 @@ export const   getdailyWeatherCC =  (city : string , country :string)  =>{
       
     })
     .catch(err => {
-      reject("Could not get Daily Forecast");
+      reject(new Error("Could not get Daily Forecast"));
       console.log(err)
     });
   })
@@ -243,7 +254,7 @@ export const gethourlyWeather=(lat:number ,lon:number)=>{
       resolve(arr)
       })
     .catch(err =>{
-      reject('Could not get Hourly Forecast')  ;
+      reject(new Error("Could not get Hourly Forecast"));
       console.log(err)});
   })
  
@@ -269,7 +280,7 @@ export const gethourlyWeatherCC=(city : string , country :string)=>{
       resolve(arr)
       })
     .catch(err =>{
-      reject("Could not get Hourly Forecast");
+      reject(new Error("Could not get hourly Forecast"));
       console.log(err)});
   })
  
