@@ -27,9 +27,9 @@ export const getCurrentUserLocation =(): Promise<Geolocation>=>{
     })
   }
 
-export const getCurrentWeather = async(geolocation : Geolocation) : Promise<WeatherData> =>{
-  const {latitude, longitude} = geolocation;
-  let url = `${W_Current_url}lat=${latitude}&lon=${longitude}&key=${weather__APIkey}`;
+export const getCurrentWeather = async(lat:number ,lon:number) : Promise<WeatherData> =>{
+  
+  let url = `${W_Current_url}lat=${lat}&lon=${lon}&key=${weather__APIkey}`;
  
     return new Promise((resolve , reject) =>{
       fetch(url)
@@ -69,7 +69,7 @@ export const getCurrentWeather = async(geolocation : Geolocation) : Promise<Weat
       })
       .catch(err => {
         console.log(err)
-        reject(err);
+        reject('Error getting Current Weather');
       });
 })
  
@@ -118,7 +118,7 @@ export const getCurrentWeatherCC = async(city : string , country :string ) : Pro
       })
       .catch(err => {
         console.log(err)
-        reject(err);
+        reject('Error getting Current Weather');
       });
 })
  
@@ -154,7 +154,7 @@ return new Promise((resolve , reject) =>{
   })
   .catch((err)=>{
     console.log(err);
-    reject(err);
+    reject('Error Getting picture');
   })
 })
 
@@ -186,7 +186,7 @@ export const   getdailyWeather =  (lat:number ,lon:number)  =>{
       
     })
     .catch(err => {
-      reject(err);
+      reject("Could not get Daily Forecast");
       console.log(err)
     });
   })
@@ -217,7 +217,7 @@ export const   getdailyWeatherCC =  (city : string , country :string)  =>{
       
     })
     .catch(err => {
-      reject(err);
+      reject("Could not get Daily Forecast");
       console.log(err)
     });
   })
@@ -243,7 +243,7 @@ export const gethourlyWeather=(lat:number ,lon:number)=>{
       resolve(arr)
       })
     .catch(err =>{
-      reject(err)  ;
+      reject('Could not get Hourly Forecast')  ;
       console.log(err)});
   })
  
@@ -269,7 +269,7 @@ export const gethourlyWeatherCC=(city : string , country :string)=>{
       resolve(arr)
       })
     .catch(err =>{
-      reject(err)  ;
+      reject("Could not get Hourly Forecast");
       console.log(err)});
   })
  
