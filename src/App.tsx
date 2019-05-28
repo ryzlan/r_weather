@@ -86,14 +86,14 @@ class App extends React.Component{
         img:img_Data.img,
       })
     })
-    .then(()=>getdailyWeather(this.state.lat , this.state.lon ))
+    .then(()=>getdailyWeatherCC(this.state.city ,this.state.country ))
     .then((arrdata)=>{
       this.setState({
         dailyData:arrdata,
         
       })
     })
-    .then(()=>gethourlyWeather(this.state.lat , this.state.lon))
+    .then(()=>gethourlyWeatherCC(this.state.city ,this.state.country))
     .then(arr =>{
       this.setState({
         hourlyData:arr
