@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
-
+import Skeleton from 'react-skeleton-loader';
 
 import './components/InputQuery';
 import Navigation from './components/Navigation';
@@ -243,64 +243,31 @@ class App extends React.Component{
 
     const dailyWeather = this.state.dailyData && <DailyWeather dailyData={this.state.dailyData} /> ;
 
-    const hourlyWeather = this.state.hourlyData && <Graph data={this.state.hourlyData}/>
+    const hourlyWeather = this.state.hourlyData ? <Graph data={this.state.hourlyData}/> :<Skeleton animated height="450px" width="100%"/>
 
-    const body = (<section style={sectionStyle}>
-    <Container >
-      <Row>
-        <div>
-          {this.state.error}
-        </div>
-      </Row>
-      <Row>
-       
-        {displayWeather}
-      </Row>
-      <Row>
-      
-          {dailyWeather}  
-        
-      </Row>
-      <Row>
-        <div className="graph-container">
-          <h3 className="text-centr">12-hrs Forecast</h3>
-          {hourlyWeather}
-        </div>
-        
-      </Row>
 
-    </Container>
-    </section>);
+    
 
     return (
       <>
-      <Navigation handleSubmit={this.handleSubmit} />
-      <section style={sectionStyle}>
-    <Container >
-       <Row>
-         {this.state.error &&<div className="error-main">
-          {this.state.error}
-        </div>}
-      </Row>
-      <Row>
-       
-        {displayWeather}
-      </Row>
-      <Row>
-      
-          {dailyWeather}  
-        
-      </Row>
-      <Row>
-        <div className="graph-container">
-          <h3 className="text-centr">12-hrs Forecast</h3>
-          {hourlyWeather}
-        </div>
-        
-      </Row>
-
-    </Container>
-    </section>
+        <Navigation handleSubmit={this.handleSubmit} />
+        <section style={sectionStyle}>
+          <Container>
+            <Row>
+              {this.state.error && (
+                <div className="error-main">{this.state.error}</div>
+              )}
+            </Row>
+            <Row>{displayWeather}</Row>
+            <Row>{dailyWeather }</Row>
+            <Row>
+              <div className="graph-container">
+                <h3 className="text-centr">12-hrs Forecast</h3>
+                {hourlyWeather}
+              </div>
+            </Row>
+          </Container>
+        </section>
       </>
     );
   }

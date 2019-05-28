@@ -4,7 +4,7 @@ import {Component  } from 'react';
 import {WeatherData} from '../types/types';
 import moment from 'moment';
 import ShowIcons from './ShowIcons';
-
+import Skeleton from 'react-skeleton-loader';
 
 interface Props{
     weatherData?:WeatherData,
@@ -29,16 +29,16 @@ export default class DisplayWeather extends Component<Props , State> {
                     <p className="lone" onClick={this.props.refresh}><i className="wi wi-refresh"></i></p>
                      <div className="text-block">
                          <div className="banner">
-                             <p> { city +","+ country  }  </p>
-                             <p> { moment(ts *1000).format('dddd, MMM Do')  } </p>
+                             <p> { city +","+ country || <Skeleton animated/> }  </p>
+                             <p> { moment(ts *1000).format('dddd, MMM Do') || <Skeleton animated/> } </p>
                          </div>
                          <div className="main">
                              <div className="main__icon"> 
                                  <ShowIcons icon={icon} /> 
-                                 <p> {description } </p>
+                                 <p> {description || <Skeleton animated/>} </p>
                              </div>
                              <div className="temp">
-                                 <p className="temp_val" >{ temp }<span className="wi wi-celsius"></span>
+                                 <p className="temp_val" >{ temp || <Skeleton animated/>}<span className="wi wi-celsius"></span>
                                  </p>
                                  <p className="realfeel">
                                      <i className="wi wi-thermometer">{" "+ realfeel +" " }<span className="wi wi-celsius"></span></i></p>
