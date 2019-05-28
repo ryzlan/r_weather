@@ -339,6 +339,9 @@ body {
 
 
 @media (min-width: 320px) and (max-width: 480px) {
+  .hero_container{
+    margin: 20px 5px;
+  }
   .main{
     width: 100%;
     display: flex;
@@ -366,10 +369,20 @@ body {
   .main__icon p{
     padding:0;
   }
+  .temp{
+    padding:0;
+  }
 
   .temp .temp_val{
     font-size:80px;
+    text-align: center;
     
+  }
+  .realfeel{
+    text-align: center;
+  }
+  .rs{
+    text-align: center;
   }
 
   .navbar-brand{
@@ -381,6 +394,7 @@ body {
     margin: 0 auto;
     width: 100%;
   }
+  
   
 }
 

@@ -13,7 +13,7 @@ import Loading from './components/Loading';
 import { WeatherData, dailyData, hourlyData } from './types/types';
 
 
-import {getCurrentUserLocation , getCurrentWeather, getPicture, getdailyWeather, gethourlyWeather, getCurrentWeatherCC, getdailyWeatherCC, gethourlyWeatherCC} from './helpers/helpers';
+import { getCurrentUserLocation, getCurrentWeather, getPicture, getdailyWeather, gethourlyWeather, getCurrentWeatherCC, getdailyWeatherCC, gethourlyWeatherCC } from './helpers/helpers';
 
 interface Props{}
 
@@ -42,6 +42,8 @@ class App extends React.Component{
     img:'',
     lat:23.781375999999998,
     lon:90.36185599999999,
+    city:'Dhaka',
+    country:'BD',
     term:'',
     error:''
   }
@@ -69,7 +71,7 @@ class App extends React.Component{
 
 
   refresh =() =>{
-    getCurrentWeather(this.state.lat ,this.state.lon)
+    getCurrentWeatherCC(this.state.city ,this.state.country)
     .then((term)=>{
       this.setState({
         weatherData:term,
@@ -109,8 +111,7 @@ class App extends React.Component{
 
 
   init =  () =>{
-    // console.log('clec');
-    
+
     getCurrentUserLocation()
     //get Geolocation
     .then(geolocation =>{
@@ -126,7 +127,9 @@ class App extends React.Component{
       this.setState({
         weatherData:term,
         term: term.description,
-        loading: false
+        loading: false,
+        city:term.city,
+        country:term.country,
       })
       return term.description;
     })
@@ -170,7 +173,9 @@ class App extends React.Component{
   handleSubmit=(city :string , country :string)=>{
      console.log(city, country);
      this.setState({
-       loading:true
+       loading:true,
+       city:city,
+       country:country
  
      })
      
@@ -220,7 +225,7 @@ class App extends React.Component{
 
 
   render(){
-    console.log(this.state);
+    
     
     const sectionStyle = {
       width: "100%",
