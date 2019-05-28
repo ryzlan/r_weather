@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const cacheName = 'v2';
 
 // Call Install Event
@@ -41,3 +42,4 @@ window.addEventListener('fetch', e => {
       .catch(err => caches.match(e.request).then(res => res))
   );
 });
+// Flag for enabling cache in production

@@ -21,38 +21,27 @@
       body{
         background: linear-gradient(180deg,#297af9,#333fb7);
       }
-      #root{
-        background: linear-gradient(180deg,#297af9,#333fb7);
-      }
-      .shell-container{
-        max-width: 500px;
-        background:#2a2a2a;
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin:0 auto;
-        background: linear-gradient(180deg,#297af9,#333fb7);
-        display: flex;
-        flex-direction: row;
-        justify-content: center ;
-        align-content: center;
-      }
-      .shell-header{
-        display: flex;
-        flex-direction: row;
-        justify-content: center ;
-        align-content: center;
-        height: 200px;
-        width: 100%;
-        color: #f2f2f2;
-      }
       .no-container{
         display: flex;
         flex-direction: row;
         justify-content: center ;
         align-content: center;
       }
-      
+      .App {
+        display: flex;
+        flex-direction: row;
+        justify-content: center ;
+        align-content: center;
+        text-align: center;
+      }
+      .App-header {
+        height: 150px;
+        padding: 20px;
+        color: white;
+      }
+      .App-intro {
+        font-size: large;
+      }
   
     
     
@@ -62,12 +51,33 @@
 
   </head>
   <body>
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+              navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+              }, function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+              }).catch(function(err) {
+                console.log(err)
+              });
+            });
+          } else {
+            console.log('service worker is not supported');
+          }
+        </script>
+
+
       <noscript><div class="no-container"><h3>please Enable javascript</h3></div></noscript>
     <div id="root">
-      <div class="shell-container">
-        <div class="shell-header">
-          <h1>Loading weather...</h1>
-        </div>
+        <div class="App">
+            <div class="App-header">
+              <h2>Loading site...</h2>
+            </div>
+            
+          </div>
       </div>
 
 
@@ -78,22 +88,7 @@
     </div>
 
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-            console.log('Service Worker registration successful', registration.scope);
-          }, function(err) {
-            console.log('Service Worker registration failed', err);
-          }).catch(function(err) {
-            console.log(err);
-          });
-        });
-      } else {
-        console.log('Service Worker is not supported by browser.');
-      }
-    </script>
-    <script src="service-worker.js"></script>
+    
     
   </body>
 </html>
