@@ -3,27 +3,27 @@
   "name": "React Weather App",
   "icons": [
     {
-      "src": "icon1.png",
+      "src": "logo.png",
       "sizes": "120x120",
       "type": "image/png"
     },
     {
-      "src": "icon2.png",
+      "src": "logo.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "icon3.png",
+      "src": "logo.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "icon4.png",
+      "src": "logo.png",
       "sizes": "167x167",
       "type": "image/png"
     },
     {
-      "src": "icon5.png",
+      "src": "logo.png",
       "sizes": "180x180",
       "type": "image/png"
     },
@@ -39,7 +39,7 @@
     }
     
   ],
-  "start_url": ".",
+  "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
