@@ -5,7 +5,7 @@ and javascript navigator used for geolocation
 
 
 
-###Features includes 
+### Features includes 
 1> A list of cities to select from, Once the list item is selected, The application should show the current weather 
 2> CSS  to create a good looking+fast performing and fast loading User interface for the application, and it's responsive. 
 3>Using The Geolocation API showing the weather .
@@ -13,10 +13,10 @@ and javascript navigator used for geolocation
 5> Progressive Web App (PWA) .
 
 
-##Live
+## Live
 https://ryzlan.github.io/r_weather/
 
-##code
+## code
 npm start 
 or 
 npm run build 
